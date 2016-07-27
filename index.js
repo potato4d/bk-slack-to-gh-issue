@@ -21,7 +21,7 @@ bot.hears("(Create Issue)",["direct_message","direct_mention","mention"], (bot, 
 	.then( () => {
 		bot.reply(message, "Success! Created issue \"" + elements[1] + "\".");
 	})
-	.catch( () => {
-		bot.reply(message, "Sorry, Issue create failed.");
+	.catch( (err) => {
+		bot.reply(message, "Sorry, Issue create failed.\n" + err);
 	});
 });
