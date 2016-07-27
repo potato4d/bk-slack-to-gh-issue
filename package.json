@@ -1,0 +1,19 @@
+{
+  "name": "bk_slack_to_gh_issue",
+  "version": "0.1.0",
+  "description": "Slack Message send to Github Issue Using Botkit.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -R spec",
+    "lint": "eslint ./;exit 0;"
+  },
+  "author": "Potato4d(TAKUMA Hanatani)",
+  "license": "MIT",
+  "dependencies": {
+    "botkit": "^0.2.2"
+  },
+  "devDependencies": {
+    "eslint": "^3.1.1",
+    "mocha": "^2.5.3"
+  }
+}

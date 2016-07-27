@@ -1,0 +1,13 @@
+{
+	"token": {
+		"slack": {
+			"token": "token get from https://api.slack.com/web"
+		},
+
+		"github": {
+			"user": "yourName",
+			"password": "token get from https://github.com/settings/tokens"
+		}
+	},
+	"repository": "yourName/RepoName"
+}
