@@ -26,9 +26,9 @@ bot.spawn(settings.token.slack).startRTM();
 bot.hears("(Create Issue)",["direct_message","direct_mention","mention"], (bot, message) => {
 	let elements = message.text.split("\n");
 	let title = createUser[0].name + ": " + elements[1];
-	let body = elements.filter( (row, index) => {return index >= 2}).join("\n");
+	let body = elements.filter( (row, index) => {return index >= 2;}).join("\n");
 	let createUser = users.filter( (user) => {
-		return user.id == message.user
+		return user.id == message.user;
 	}) || {name:"Unknown"};
 
 	bot.reply(
