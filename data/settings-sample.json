@@ -1,4 +1,5 @@
 {
+	"lang": "ja",
 	"token": {
 		"slack": {
 			"token": "token get from https://api.slack.com/web"

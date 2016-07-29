@@ -29,6 +29,7 @@ const githubController = function(params) {
 
 			this.request(this.options, (err, res)=>{
 				if(err) reject(err);
+				if(res.statusCode != 200) reject(res.statusCode);
 				return resolve(res);
 			});
 		});

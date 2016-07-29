@@ -1,0 +1,13 @@
+{
+	"en": {
+		"Processing": "Processing create issue \"{title}\"...",
+		"Success"   : "Success! Created issue \"{title}\".",
+		"Error"     : "Sorry, Issue create failed.\n{error}"
+	},
+
+	"ja": {
+		"Processing": "Issue \"{title}\"を作成中……",
+		"Success"   : "Issue \"{title}\"の作成に成功",
+		"Error"     : "Issueの作成に失敗しました。\n{error}"
+	}
+}
