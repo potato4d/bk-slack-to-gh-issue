@@ -1,4 +1,4 @@
-# BK Slack to Github Issue
+# BK Slack to Github Issue [![Build Status](https://travis-ci.org/potato4d/bk-slack-to-gh-issue.svg?branch=master)](https://travis-ci.org/potato4d/bk-slack-to-gh-issue) [![license](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://github.com/potato4d/bk-slack-to-gh-issue/blob/master/LICENSE)
 Slack Message send to Github Issue Using Botkit.
 
 # Installation
