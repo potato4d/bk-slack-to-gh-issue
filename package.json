@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha -R spec",
-    "lint": "eslint ./;exit 0;"
+    "lint": "eslint ./;exit 0;",
+    "start": "node index.js"
   },
   "author": "Potato4d(TAKUMA Hanatani)",
   "license": "MIT",
