@@ -9,7 +9,10 @@ sl.setAuthData(settings.token.slack.token);
 gh.setAuthData(settings.token.github);
 
 let users = false;
-sl.getUsersList()
+Promise.resolve()
+.then( () => {
+	return sl.getUsersList();
+})
 .then( (data) => {
 	users = data;
 })
