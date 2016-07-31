@@ -12,7 +12,7 @@ let users = false;
 
 Promise.resolve()
 	.then( () => {
-		sl.getUsersList()
+		sl.getUsersList();
 	})
 	.then( (data) => {
 		users = data;
