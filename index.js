@@ -8,7 +8,8 @@ const sl = require("./module/slack-controller")("");
 sl.setAuthData(settings.token.slack.token);
 gh.setAuthData(settings.token.github);
 
-let users = false;
+var users = false;
+
 Promise.resolve()
 .then( () => {
 	return sl.getUsersList();
