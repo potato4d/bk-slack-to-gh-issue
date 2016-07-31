@@ -17,7 +17,7 @@ const slackController = function() {
 			this.endpoint = "channels.list";
 			this.request(this.makeUri(), (err, res, body) => {
 				if(err) reject(err);
-				if(res.statusCode != 200) reject(res.statusCode);
+				if([200, 201].indexOf(res.statusCode) == -1) reject(res.statusCode);
 
 				resolve(JSON.parse(body).channels);
 			});
@@ -29,7 +29,7 @@ const slackController = function() {
 			this.endpoint = "users.list";
 			this.request(this.makeUri(), (err, res, body) => {
 				if(err) reject(err);
-				if(res.statusCode != 200) reject(res.statusCode);
+				if([200, 201].indexOf(res.statusCode) == -1) reject(res.statusCode);
 
 				resolve(JSON.parse(body).members);
 			});
