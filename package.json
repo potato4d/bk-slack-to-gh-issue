@@ -1,6 +1,6 @@
 {
   "name": "bk_slack_to_gh_issue",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Slack Message send to Github Issue Using Botkit.",
   "main": "index.js",
   "scripts": {
