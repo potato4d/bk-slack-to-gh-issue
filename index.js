@@ -9,13 +9,17 @@ sl.setAuthData(settings.token.slack.token);
 gh.setAuthData(settings.token.github);
 
 let users = false;
-sl.getUsersList()
-.then( (data) => {
-	users = data;
-})
-.catch( (err) => {
-	console.log("userList Get Error:" + err);
-});
+
+Promise.resolve()
+	.then( () => {
+		sl.getUsersList();
+	})
+	.then( (data) => {
+		users = data;
+	})
+	.catch( (err) => {
+		console.log("userList Get Error:" + err);
+	});
 
 const bot = Botkit.slackbot({
 	debug: false
@@ -38,21 +42,21 @@ bot.hears("(Create Issue)",["direct_message","direct_mention","mention"], (bot, 
 	);
 
 	Promise.resolve()
-	.then( () => {
-		return gh.createIssue(title, body);
-	})
-	.then( (data) => {
-		bot.reply(
-			message,
-			dictionary[settings.lang]["Success"].replace(/{title}/, title).replace(/{url}/, data.body.html_url)
-		);
-		console.log(data);
-	})
-	.catch( (err) => {
-		bot.reply(
-			message,
-			dictionary[settings.lang]["Error"].replace(/{error}/, err)
-		);
-		console.log(err);
-	});
+		.then( () => {
+			return gh.createIssue(title, body);
+		})
+		.then( (data) => {
+			bot.reply(
+				message,
+				dictionary[settings.lang]["Success"].replace(/{title}/, title).replace(/{url}/, data.body.html_url)
+			);
+			console.log(data);
+		})
+		.catch( (err) => {
+			bot.reply(
+				message,
+				dictionary[settings.lang]["Error"].replace(/{error}/, err)
+			);
+			console.log(err);
+		});
 });
