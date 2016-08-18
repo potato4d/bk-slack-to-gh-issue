@@ -1,6 +1,6 @@
 const Botkit = require("botkit");
 
-const settings = require("./data/settings.json");
+const settings = JSON.parse(process.env.ISSUE_BOT_SETTINGS) || require("./data/settings.json");
 const dictionary = require("./data/dictionary.json");
 
 const gh = require("./module/github-controller")(settings.repository);
