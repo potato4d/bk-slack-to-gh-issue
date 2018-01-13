@@ -3,6 +3,7 @@ const Botkit = require("botkit");
 let settings = require("./data/settings.json");
 const dictionary = require("./data/dictionary.json");
 
+const gh = require("./module/github-controller")();
 const sl = require("./module/slack-controller")("");
 sl.setAuthData(settings.token.slack.token);
 gh.setAuthData(settings.token.github);
@@ -59,8 +60,6 @@ bot.hears("(Set Repository)",["direct_message","direct_mention","mention"], (bot
 });
 
 bot.hears("(Create Issue)",["direct_message","direct_mention","mention"], (bot, message) => {
-	let gh = require("./module/github-controller")(settings["repository"][channel]);
-
 	let elements = message.text.split("\n");
 	let createUser = users.filter( (user) => {
 		return user.id == message.user;
