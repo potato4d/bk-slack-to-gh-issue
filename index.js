@@ -1,14 +1,16 @@
 const Botkit = require("botkit");
 
-const settings = JSON.parse(process.env.ISSUE_BOT_SETTINGS) || require("./data/settings.json");
+let settings = require("./data/settings.json");
 const dictionary = require("./data/dictionary.json");
 
-const gh = require("./module/github-controller")(settings.repository);
+const gh = require("./module/github-controller");
 const sl = require("./module/slack-controller")("");
 sl.setAuthData(settings.token.slack.token);
 gh.setAuthData(settings.token.github);
 
 let users = false;
+
+var fs = require("fs");
 
 Promise.resolve()
 .then( () => {
@@ -27,6 +29,36 @@ const bot = Botkit.slackbot({
 
 bot.spawn(settings.token.slack).startRTM();
 
+bot.hears("(Set Repository)",["direct_message","direct_mention","mention"], (bot, message) => {
+	let repository = message.text.split("\n")[1];
+	let channel = message.channel;
+
+	bot.reply(
+		message,
+		"Setting channel repository: " + repository
+	);
+
+	Promise.resolve()
+	.then( () => {
+		settings["repository"][channel] = repository;
+		fs.writeFile("./data/settings.json", JSON.stringify(settings, null, '\t'))
+	})
+	.then( (data) => {
+		bot.reply(
+			message,
+			"Success setting channel reposiory: " + repository
+		);
+		console.log(data);
+	})
+	.catch( (err) => {
+		bot.reply(
+			message,
+			"Error setting channel repository: " + repository + "\n" + err
+		);
+		console.log(err);
+	});
+});
+
 bot.hears("(Create Issue)",["direct_message","direct_mention","mention"], (bot, message) => {
 	let elements = message.text.split("\n");
 	let createUser = users.filter( (user) => {
@@ -35,27 +67,28 @@ bot.hears("(Create Issue)",["direct_message","direct_mention","mention"], (bot, 
 
 	let title = createUser[0].name + ": " + elements[1];
 	let body = elements.filter( (row, index) => {return index >= 2;}).join("\n");
+	let repository = settings["repository"][message.channel];
 
 	bot.reply(
 		message,
-		dictionary[settings.lang]["Processing"].replace(/{title}/, title)
+		"Create Issue " + title + " in " + repository
 	);
 
 	Promise.resolve()
 	.then( () => {
-		return gh.createIssue(title, body);
+		return gh.createIssue(title, body, repository);
 	})
 	.then( (data) => {
 		bot.reply(
 			message,
-			dictionary[settings.lang]["Success"].replace(/{title}/, title).replace(/{url}/, data.body.html_url)
+			"Succeed creating issue at " + title + " in " + repository + "\n" + data.body.html_url
 		);
 		console.log(data);
 	})
 	.catch( (err) => {
 		bot.reply(
 			message,
-			dictionary[settings.lang]["Error"].replace(/{error}/, err)
+			"Failed creating issue at " + title + " in " + repository + "\n" + err
 		);
 		console.log(err);
 	});
