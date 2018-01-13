@@ -1,13 +1,12 @@
-const githubController = function(params) {
+const githubController = function() {
 	this.request = require("request");
 	this.auth = {};
 	this.options = {
-		url: "https://api.github.com/repos/" + params + "/issues",
 		method: "POST",
 		json: true,
 		headers: {
 			"Content-Type":"application/json",
-			"User-Agent": "BK-Slack-to-Issues"
+			"User-Agent": "sitsuji"
 		},
 	};
 
@@ -19,7 +18,9 @@ const githubController = function(params) {
 		this.auth = data;
 	};
 
-	this.createIssue = (title, description) => {
+	this.createIssue = (title, description, repository) => {
+		this.options["url"] = "https://api.github.com/repos/" + repository + "/issues";
+
 		return new Promise( (resolve, reject) => {
 			this.options.auth = this.auth;
 			this.options.form = JSON.stringify({
@@ -36,4 +37,4 @@ const githubController = function(params) {
 	};
 };
 
-module.exports = params => {return new githubController(params);};
+module.exports = new githubController();
