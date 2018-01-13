@@ -19,9 +19,9 @@ const githubController = function() {
 	};
 
 	this.createIssue = (title, description, repository) => {
-		this.options["url"] = "https://api.github.com/repos/" + repository + "/issues";
 
 		return new Promise( (resolve, reject) => {
+			this.options.url = "https://api.github.com/repos/" + repository + "/issues";
 			this.options.auth = this.auth;
 			this.options.form = JSON.stringify({
 				title: title,
