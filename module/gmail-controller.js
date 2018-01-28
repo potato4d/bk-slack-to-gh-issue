@@ -2,7 +2,7 @@ const gmailController = function(){
 	var express          = require( "express" )
     , app              = express()
     , server           = require( "http" ).createServer( app ); 
-	server.listen( 3000 );
+	server.listen( 3001 );
 	app.set("views", __dirname + "/views");
 	app.set("view engine", "ejs");
   
@@ -17,11 +17,13 @@ const gmailController = function(){
 
   // If modifying these scopes, delete your previously saved credentials
   // at ~/.credentials/gmail-nodejs-quickstart.json
-	var SCOPES = ["https://www.googleapis.com/auth/gmail.readonly", "https://www.googleapis.com/auth/gmail.send"];
+	var SCOPES = ["https://www.googleapis.com/auth/gmail.send"];
     
 	var oauth2Client;
 
 	var sendingObjectDict = {};
+
+	const homeDir = "sitsuji-express/"
 
 	this.getAuthURL = (user, sendingObject, callback) =>{
 		var url = "";
@@ -96,7 +98,7 @@ const gmailController = function(){
             {
 					sendingObject.reject();
 				}              
-				res.redirect("/aftermail");  
+				res.redirect("/" + homeDir + "aftermail");
 			});
 		});
 	});
@@ -126,7 +128,7 @@ const gmailController = function(){
 	function authorize(credentials, user) {
 		var clientSecret = credentials.web.client_secret;
 		var clientId = credentials.web.client_id;
-		var redirectUrl = "http://localhost:3000/auth/google/callback";
+		var redirectUrl = "http://localhost/" + homeDir + "auth/google/callback";
 		var auth = new googleAuth();
 		oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
 
